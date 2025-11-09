@@ -1,14 +1,20 @@
 import { useState } from 'react';
+import { useImage } from '../context/ImageContext';
 import styles from '../styles/Toolbar.module.css';
 
 const Toolbar = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const { setShowEditor } = useImage();
+
+  const handleLogoClick = () => {
+    setShowEditor(false);
+  };
 
   return (
     <>
       <div className={styles.toolbar}>
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={handleLogoClick}>
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
             <rect x="5" y="5" width="40" height="40" rx="4" stroke="white" strokeWidth="2" fill="none"/>
             <circle cx="18" cy="18" r="4" fill="white"/>
