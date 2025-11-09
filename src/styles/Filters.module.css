@@ -1,0 +1,179 @@
+.filtersSection {
+  width: 400px;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filtersScroll {
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filtersScroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.filtersScroll::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+.filtersScroll::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 10px;
+}
+
+.filtersScroll::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+
+.filterItem {
+  background-color: #3d3d3d;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.detailsButton {
+  background: none;
+  border: none;
+  color: #6ab0ff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.detailsButton:hover {
+  opacity: 0.7;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #1a1a1a;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6ab0ff;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6ab0ff;
+  cursor: pointer;
+  border: none;
+}
+
+.slider:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.numberInput {
+  width: 60px;
+  padding: 0.4rem;
+  background-color: #1a1a1a;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.numberInput:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.detailsSection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #4a4a4a;
+}
+
+.description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.exampleImages {
+  display: flex;
+  gap: 1rem;
+}
+
+.exampleImage {
+  flex: 1;
+}
+
+.exampleLabel {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #999;
+}
+
+.exampleImage img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+.placeholderBox {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #4a4a4a;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 0.9rem;
+}
