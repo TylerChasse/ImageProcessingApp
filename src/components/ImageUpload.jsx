@@ -1,8 +1,7 @@
 import { useRef } from 'react';
-import { useImage } from '../../context/ImageContext';
-import styles from '../../styles/LandingPage.module.css';
+import { useImage } from '../context/ImageContext';
 
-const ImageUpload = () => {
+const ImageUpload = ({ buttonText = 'Upload a Photo', buttonClassName = '' }) => {
   const { handleImageUpload } = useImage();
   const fileInputRef = useRef(null);
 
@@ -18,10 +17,9 @@ const ImageUpload = () => {
   };
 
   return (
-    <div className={styles.uploadSection}>
-      <h2 className={styles.getStarted}>Get Started</h2>
-      <button className={styles.uploadButton} onClick={handleButtonClick}>
-        Upload a Photo
+    <>
+      <button className={buttonClassName} onClick={handleButtonClick}>
+        {buttonText}
       </button>
       <input
         ref={fileInputRef}
@@ -30,7 +28,7 @@ const ImageUpload = () => {
         onChange={handleFileChange}
         style={{ display: 'none' }}
       />
-    </div>
+    </>
   );
 };
 

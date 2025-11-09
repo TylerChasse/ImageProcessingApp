@@ -51,6 +51,24 @@
   object-fit: contain;
 }
 
+.uploadButton {
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  background-color: #d4d4d4;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: center;
+}
+
+.uploadButton:hover {
+  background-color: #e4e4e4;
+}
+
 .downloadButton {
   margin-top: 1rem;
   padding: 0.75rem 2rem;

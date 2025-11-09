@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useImage } from '../../context/ImageContext';
+import ImageUpload from '../ImageUpload';
 import styles from '../../styles/ImageEditor.module.css';
 
 const OriginalImage = () => {
@@ -24,6 +25,10 @@ const OriginalImage = () => {
       <div className={styles.imageWrapper}>
         <canvas ref={canvasRef} className={styles.canvas} />
       </div>
+      <ImageUpload 
+        buttonText="Upload New Photo" 
+        buttonClassName={styles.uploadButton}
+      />
     </div>
   );
 };

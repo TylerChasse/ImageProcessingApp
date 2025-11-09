@@ -1,6 +1,6 @@
 import Toolbar from '../components/Toolbar';
 import LandingPageExample from '../components/LandingPage/LandingPageExample';
-import ImageUpload from '../components/LandingPage/ImageUpload';
+import ImageUpload from '../components/ImageUpload';
 import styles from '../styles/LandingPage.module.css';
 
 const LandingPage = () => {
@@ -9,7 +9,10 @@ const LandingPage = () => {
       <Toolbar />
       <div className={styles.content}>
         <LandingPageExample />
-        <ImageUpload />
+        <div className={styles.uploadSection}>
+          <h2 className={styles.getStarted}>Get Started</h2>
+          <ImageUpload buttonClassName={styles.uploadButton} />
+        </div>
       </div>
     </div>
   );
