@@ -1,6 +1,6 @@
 import styles from '../../styles/LandingPage.module.css';
 // Import your images here
-import landingBefore from '../../assets/landingPageBefore.jpg';
+import landingBefore from '../../assets/landingPageBefore.jpeg';
 import landingAfter from '../../assets/landingPageAfter.png';
 
 const LandingPageExample = () => {
