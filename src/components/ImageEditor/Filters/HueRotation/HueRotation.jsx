@@ -1,4 +1,6 @@
 import FilterTemplate from '../FilterTemplate';
+import hueBefore from '../../../../assets/hueBefore.jpg';
+import hueAfter from '../../../../assets/hueAfter.png';
 
 const HueRotation = () => {
   return (
@@ -6,8 +8,8 @@ const HueRotation = () => {
       filterId="hueRotation"
       filterName="Hue Rotation"
       description="Rotates the hue of all colors in the image. Shifts colors around the color wheel while maintaining saturation and brightness."
-      beforeImage={null}  // TODO: Add actual before/after example images
-      afterImage={null}
+      beforeImage={hueBefore}
+      afterImage={hueAfter}
     />
   );
 };
