@@ -6,7 +6,7 @@ import landingAfter from '../../assets/landingPageAfter.png';
 const LandingPageExample = () => {
   return (
     <div className={styles.exampleSection}>
-      <h2 className={styles.tagline}>Take your photos to the Next Level</h2>
+      <h2 className={styles.tagline}>Take Your Photos To The Next Level</h2>
       <div className={styles.exampleImages}>
         <div className={styles.exampleBox}>
           <img 

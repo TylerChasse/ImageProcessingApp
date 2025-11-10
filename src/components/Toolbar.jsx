@@ -21,7 +21,7 @@ const Toolbar = () => {
             <path d="M5 35 L15 25 L25 35 L35 20 L45 30 L45 45 L5 45 Z" fill="white"/>
           </svg>
         </div>
-        <h1 className={styles.title}>Image editor</h1>
+        <h1 className={styles.title}>Image Editor</h1>
         <div className={styles.buttons}>
           <button onClick={() => setShowAbout(true)}>About</button>
           <button onClick={() => setShowHelp(true)}>Help</button>

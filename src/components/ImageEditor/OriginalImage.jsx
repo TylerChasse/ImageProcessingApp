@@ -21,7 +21,7 @@ const OriginalImage = () => {
 
   return (
     <div className={styles.imageContainer}>
-      <div className={styles.imageLabel}>Original uploaded image</div>
+      <div className={styles.imageLabel}>Original Image</div>
       <div className={styles.imageWrapper}>
         <canvas ref={canvasRef} className={styles.canvas} />
       </div>
