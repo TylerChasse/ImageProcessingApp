@@ -7,6 +7,7 @@ const Toolbar = () => {
   const [showHelp, setShowHelp] = useState(false);
   const { setShowEditor } = useImage();
 
+  // If the logo is clicked, navigate back to the landing page (don't show editor)
   const handleLogoClick = () => {
     setShowEditor(false);
   };
@@ -14,6 +15,7 @@ const Toolbar = () => {
   return (
     <>
       <div className={styles.toolbar}>
+        {/* App Logo that navigates to landing page when clicked */}
         <div className={styles.logo} onClick={handleLogoClick}>
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
             <rect x="5" y="5" width="40" height="40" rx="4" stroke="white" strokeWidth="2" fill="none"/>
@@ -21,7 +23,9 @@ const Toolbar = () => {
             <path d="M5 35 L15 25 L25 35 L35 20 L45 30 L45 45 L5 45 Z" fill="white"/>
           </svg>
         </div>
+        {/* App Title */}
         <h1 className={styles.title}>Image Editor</h1>
+        {/* Buttons to open About and Help modals */}
         <div className={styles.buttons}>
           <button onClick={() => setShowAbout(true)}>About</button>
           <button onClick={() => setShowHelp(true)}>Help</button>
