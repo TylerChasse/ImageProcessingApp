@@ -1,7 +1,17 @@
+/**
+ * ImageContext
+ * 
+ * Global state management for the image editor.
+ * Stores images, filters, and handles image uploads.
+ */
+
 import { createContext, useContext, useState, useCallback } from 'react';
 
 const ImageContext = createContext();
 
+/**
+ * Hook to access image context
+ */
 export const useImage = () => {
   const context = useContext(ImageContext);
   if (!context) {
@@ -10,13 +20,19 @@ export const useImage = () => {
   return context;
 };
 
+/**
+ * ImageProvider Component
+ * 
+ * Wraps the app to provide image state to all components.
+ */
 export const ImageProvider = ({ children }) => {
-  const [originalImage, setOriginalImage] = useState(null);
-  const [originalImageData, setOriginalImageData] = useState(null);
-  const [editedImageData, setEditedImageData] = useState(null);
-  const [showEditor, setShowEditor] = useState(false);
+  // Image state
+  const [originalImage, setOriginalImage] = useState(null); // { img, file }
+  const [originalImageData, setOriginalImageData] = useState(null); // ImageData object
+  const [editedImageData, setEditedImageData] = useState(null); // ImageData with filters
+  const [showEditor, setShowEditor] = useState(false); // Show editor vs landing page
   
-  // Filter state: array of filter objects
+  // All available filters with default settings
   const [filters, setFilters] = useState([
     { 
       id: 'emboss', 
@@ -62,15 +78,19 @@ export const ImageProvider = ({ children }) => {
     },
   ]);
 
+  /**
+   * Handle image upload
+   * Converts file to ImageData and navigates to editor
+   */
   const handleImageUpload = useCallback((file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        // Store the original image
+        // Store original image and file
         setOriginalImage({ img, file });
         
-        // Create canvas to extract ImageData
+        // Extract pixel data using canvas
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
@@ -81,7 +101,7 @@ export const ImageProvider = ({ children }) => {
         setOriginalImageData(imageData);
         setEditedImageData(imageData);
         
-        // Navigate to editor
+        // Go to editor
         setShowEditor(true);
       };
       img.src = e.target.result;
@@ -89,6 +109,9 @@ export const ImageProvider = ({ children }) => {
     reader.readAsDataURL(file);
   }, []);
 
+  /**
+   * Update a specific filter's settings
+   */
   const updateFilter = useCallback((filterId, updates) => {
     setFilters(prev => 
       prev.map(filter => 
@@ -97,6 +120,7 @@ export const ImageProvider = ({ children }) => {
     );
   }, []);
 
+  // Values available to all components
   const value = {
     originalImage,
     originalImageData,
