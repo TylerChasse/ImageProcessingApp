@@ -34,11 +34,10 @@ const Toolbar = () => {
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <h2>About</h2>
             <p>
-              This is a web-based image processing system built with React and Vite.
-              All filters are implemented from scratch using custom pixel manipulation algorithms.
+              This is a web-based image processing system that allows you to apply a variety of filters to your images in real-time.
             </p>
             <p>
-              Created as an educational project to demonstrate fundamental image processing techniques.
+              Contributors: Tyler Chasse, Ryan Jackson, Espen Wold.
             </p>
             <button onClick={() => setShowAbout(false)}>Close</button>
           </div>
