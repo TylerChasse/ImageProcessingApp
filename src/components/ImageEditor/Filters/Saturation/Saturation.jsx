@@ -1,5 +1,5 @@
 import FilterTemplate from '../FilterTemplate';
-import saturationBefore from '../../../../assets/saturation/saturationBefore.jpg'
+import saturationBefore from '../../../../assets/saturation/saturationBefore.png'
 import saturationAfter from '../../../../assets/saturation/saturationAfter.png'
 const Saturation = () => {
   return (
