@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useImage } from '../../../context/ImageContext';
 import styles from '../../../styles/Filters.module.css';
 
+/*
+Template component for all image filters to implement.
+*/
 const FilterTemplate = ({ 
   filterId, 
   filterName, 
@@ -16,14 +19,17 @@ const FilterTemplate = ({
   
   if (!filter) return null;
 
+  // Update selected filters in ImageContext.jsx when a filter is enabled/disabled
   const handleCheckboxChange = (e) => {
     updateFilter(filterId, { enabled: e.target.checked });
   };
 
+  // Update selected filter's strength in ImageContext.jsx when strength slider changes
   const handleSliderChange = (e) => {
     updateFilter(filterId, { strength: Number(e.target.value) });
   };
 
+  // Update selected filter's strength in ImageContext.jsx when strength input changes
   const handleInputChange = (e) => {
     const value = Number(e.target.value);
     if (!isNaN(value) && value >= filter.range.min && value <= filter.range.max) {
@@ -34,6 +40,7 @@ const FilterTemplate = ({
   return (
     <div className={styles.filterItem}>
       <div className={styles.filterHeader}>
+        {/* Checkbox to enable/disable the filter */}
         <label className={styles.filterLabel}>
           <input
             type="checkbox"
@@ -43,6 +50,7 @@ const FilterTemplate = ({
           />
           <span>{filterName}</span>
         </label>
+        {/* Button to toggle details section */}
         <button 
           className={styles.detailsButton}
           onClick={() => setShowDetails(!showDetails)}
@@ -51,6 +59,7 @@ const FilterTemplate = ({
         </button>
       </div>
       
+      {/* Slider and numeric input for filter strength */}
       <div className={styles.sliderContainer}>
         <input
           type="range"
@@ -72,10 +81,13 @@ const FilterTemplate = ({
         />
       </div>
 
+      {/* Details section with description and example images */}
       {showDetails && (
         <div className={styles.detailsSection}>
+          {/* Filter Description */}
           <p className={styles.description}>{description}</p>
           <div className={styles.exampleImages}>
+            {/* Before Image */}
             <div className={styles.exampleImage}>
               <div className={styles.exampleLabel}>Before</div>
               {beforeImage ? (
@@ -84,6 +96,7 @@ const FilterTemplate = ({
                 <div className={styles.placeholderBox}>Before</div>
               )}
             </div>
+            {/* After Image */}
             <div className={styles.exampleImage}>
               <div className={styles.exampleLabel}>After</div>
               {afterImage ? (
