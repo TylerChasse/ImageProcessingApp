@@ -1,6 +1,6 @@
 import FilterTemplate from '../FilterTemplate';
-import hueBefore from '../../../../assets/hueBefore.jpg';
-import hueAfter from '../../../../assets/hueAfter.png';
+import hueBefore from '../../../../assets/hue/hueBefore.jpg';
+import hueAfter from '../../../../assets/hue/hueAfter.png';
 
 const HueRotation = () => {
   return (
