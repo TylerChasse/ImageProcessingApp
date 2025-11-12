@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #2C2C2C;
+  background: linear-gradient(135deg, #2A2A2A 0%, #1E1E1E 100%);
   color: #E8E8E8;
 }
 
@@ -26,4 +26,20 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+/* Smooth scrolling */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(20, 115, 230, 0.3);
+  color: #FFFFFF;
+}
+
+::-moz-selection {
+  background-color: rgba(20, 115, 230, 0.3);
+  color: #FFFFFF;
 }
