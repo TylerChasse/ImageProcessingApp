@@ -10,7 +10,7 @@ import { useErrorNotification } from '../components/ErrorNotification';
 const ImageContext = createContext();
 
 // Configuration constants
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 const MAX_DIMENSION = 10000; // 10000px max width/height
 const MIN_DIMENSION = 10; // 10px min width/height
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
