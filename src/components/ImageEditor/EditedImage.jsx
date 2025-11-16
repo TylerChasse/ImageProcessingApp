@@ -91,7 +91,7 @@ const EditedImage = () => {
 
   return (
     <div className={styles.imageContainer}>
-      <div className={styles.imageLabel}>Uploaded image with filters applied</div>
+      <div className={styles.imageLabel}>Edited Image</div>
       <div className={styles.imageWrapper}>
         <canvas ref={canvasRef} className={styles.canvas} />
       </div>
