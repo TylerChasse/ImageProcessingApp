@@ -1,0 +1,90 @@
+.errorNotificationContainer {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.errorNotification {
+  background: linear-gradient(135deg, #2A2A2A 0%, #262626 100%);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  min-width: 300px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: auto;
+  cursor: pointer;
+  animation: slideIn 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.errorNotification:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.errorNotificationIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.errorNotificationMessage {
+  flex: 1;
+  color: #E8E8E8;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.errorNotificationClose {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.errorNotificationClose:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+/* Error notification types */
+.errorNotification.error {
+  border-left: 4px solid #FF6B6B;
+}
+
+.errorNotification.warning {
+  border-left: 4px solid #FFB84D;
+}
+
+.errorNotification.success {
+  border-left: 4px solid #51CF66;
+}
