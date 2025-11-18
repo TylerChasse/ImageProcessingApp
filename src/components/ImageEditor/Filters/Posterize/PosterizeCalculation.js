@@ -9,11 +9,14 @@ export function applyPosterize(imageData, strength) {
   const pixels = imageData.data;
   const output = new Uint8ClampedArray(pixels);
   
-  // Convert strength to number of levels (2-256)
+  // Convert strength to number of levels (2-256) using exponential decay
+  // Exponential distribution makes effect noticeable across wider range
   // Higher strength = fewer levels = more posterization
   // At strength 0: 256 levels (no posterization)
+  // At strength 50: ~23 levels (noticeable posterization)
   // At strength 100: 2 levels (maximum posterization)
-  const levels = Math.max(2, Math.floor(((100 - strength) / 100) * 254) + 2);
+  const normalizedStrength = strength / 100;
+  const levels = Math.max(2, Math.round(256 * Math.pow(2/256, normalizedStrength)));
   const step = 255 / (levels - 1);
   
   for (let i = 0; i < pixels.length; i += 4) {
