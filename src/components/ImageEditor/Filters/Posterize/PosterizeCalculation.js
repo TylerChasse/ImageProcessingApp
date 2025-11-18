@@ -10,10 +10,10 @@ export function applyPosterize(imageData, strength) {
   const output = new Uint8ClampedArray(pixels);
   
   // Convert strength to number of levels (2-256)
-  // Lower strength = fewer levels = more posterization
-  // At strength 0: 2 levels (maximum posterization)
-  // At strength 100: 256 levels (no posterization)
-  const levels = Math.max(2, Math.floor((strength / 100) * 254) + 2);
+  // Higher strength = fewer levels = more posterization
+  // At strength 0: 256 levels (no posterization)
+  // At strength 100: 2 levels (maximum posterization)
+  const levels = Math.max(2, Math.floor(((100 - strength) / 100) * 254) + 2);
   const step = 255 / (levels - 1);
   
   for (let i = 0; i < pixels.length; i += 4) {
