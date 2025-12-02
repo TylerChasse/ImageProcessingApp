@@ -11,7 +11,7 @@ import styles from '../../styles/ImageEditor.module.css';
 
 const EditedImage = () => {
   const { editedImageData, originalImage } = useImage();
-  const { showError, showSuccess } = useErrorNotification();
+  const { showError } = useErrorNotification();
   const canvasRef = useRef(null);
 
   // Draw edited image
@@ -74,14 +74,12 @@ const EditedImage = () => {
           link.href = URL.createObjectURL(blob);
           link.click();
           URL.revokeObjectURL(link.href);
-          showSuccess('Image downloaded successfully!', 3000);
         }, 'image/png');
         return;
       }
 
       // Trigger download
       link.click();
-      showSuccess('Image downloaded successfully!', 3000);
 
     } catch (error) {
       console.error('Download error:', error);

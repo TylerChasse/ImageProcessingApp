@@ -1,7 +1,7 @@
 /**
  *  Notification Notification Component
  * 
- * Displays temporary notifications for errors, warnings, and success messages.
+ * Displays temporary notifications for errors.
  */
 
 import { createContext, useContext, useState, useCallback } from 'react';
@@ -43,19 +43,9 @@ export const ErrorNotificationProvider = ({ children }) => {
     addErrorNotification(message, 'error', duration);
   }, [addErrorNotification]);
 
-  const showWarning = useCallback((message, duration) => {
-    addErrorNotification(message, 'warning', duration);
-  }, [addErrorNotification]);
-
-  const showSuccess = useCallback((message, duration) => {
-    addErrorNotification(message, 'success', duration);
-  }, [addErrorNotification]);
-
   const value = {
     addErrorNotification,
     showError,
-    showWarning,
-    showSuccess
   };
 
   return (
@@ -70,8 +60,6 @@ export const ErrorNotificationProvider = ({ children }) => {
           >
             <div className={styles.errorNotificationIcon}>
               {errorNotification.type === 'error' && '❌'}
-              {errorNotification.type === 'warning' && '⚠️'}
-              {errorNotification.type === 'success' && '✅'}
             </div>
             <div className={styles.errorNotificationMessage}>{errorNotification.message}</div>
             <button 

@@ -24,7 +24,7 @@ export const useImage = () => {
 };
 
 export const ImageProvider = ({ children }) => {
-  const { showError, showSuccess } = useErrorNotification();
+  const { showError } = useErrorNotification();
   
   const [originalImage, setOriginalImage] = useState(null);
   const [originalImageData, setOriginalImageData] = useState(null);
@@ -177,8 +177,6 @@ export const ImageProvider = ({ children }) => {
             setOriginalImageData(imageData);
             setEditedImageData(imageData);
             setShowEditor(true);
-            
-            showSuccess('Image loaded successfully!', 3000);
             setIsProcessing(false);
 
           } catch (error) {
@@ -198,7 +196,7 @@ export const ImageProvider = ({ children }) => {
       showError(error.message);
       setIsProcessing(false);
     }
-  }, [showError, showSuccess]);
+  }, [showError]);
 
   /**
    * Update filter with validation
