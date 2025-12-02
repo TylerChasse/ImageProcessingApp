@@ -23,7 +23,7 @@ import styles from '../../styles/Filters.module.css';
 
 const FiltersSection = () => {
   const { originalImageData, filters, setEditedImageData } = useImage();
-  const { showError, showWarning } = useErrorNotification();
+  const { showError } = useErrorNotification();
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
@@ -48,14 +48,6 @@ const FiltersSection = () => {
           originalImageData.width,
           originalImageData.height
         );
-
-        // Count enabled filters
-        const enabledFilters = filters.filter(f => f.enabled);
-        
-        // Warn if too many heavy filters
-        if (enabledFilters.length > 3 && enabledFilters.some(f => f.id === 'blur')) {
-          showWarning('Multiple filters may slow down processing', 3000);
-        }
 
         // Apply each enabled filter with error handling
         filters.forEach(filter => {
@@ -110,7 +102,7 @@ const FiltersSection = () => {
       }
     }, 0);
 
-  }, [originalImageData, filters, setEditedImageData, showError, showWarning, isProcessing]);
+  }, [originalImageData, filters, setEditedImageData, showError, isProcessing]);
 
   return (
     <div className={styles.filtersSection}>
