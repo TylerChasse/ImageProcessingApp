@@ -106,11 +106,6 @@ const FiltersSection = () => {
 
   return (
     <div className={styles.filtersSection}>
-      {isProcessing && (
-        <div className={styles.processingIndicator}>
-          Processing...
-        </div>
-      )}
       <div className={styles.filtersScroll}>
         <Emboss />
         <HueRotation />
