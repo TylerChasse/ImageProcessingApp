@@ -26,7 +26,7 @@ export function applyPosterize(imageData, strength) {
     output[i + 2] = Math.round(Math.round(pixels[i + 2] / step) * step);
     output[i + 3] = pixels[i + 3]; // Keep alpha
   }
-  
+
   const result = new ImageData(output, imageData.width, imageData.height);
   return result;
 }
