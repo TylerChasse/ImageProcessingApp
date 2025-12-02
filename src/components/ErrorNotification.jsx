@@ -1,21 +1,14 @@
 /**
  *  Notification Notification Component
- * 
+ *
  * Displays temporary notifications for errors.
  */
 
-import { createContext, useContext, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import { ErrorNotificationContext } from '../hooks/useErrorNotification';
 import styles from '../styles/ErrorNotification.module.css';
 
-const ErrorNotificationContext = createContext();
-
-export const useErrorNotification = () => {
-  const context = useContext(ErrorNotificationContext);
-  if (!context) {
-    throw new Error('useErrorNotification must be used within ErrorNotificationProvider');
-  }
-  return context;
-};
+export { useErrorNotification } from '../hooks/useErrorNotification';
 
 export const ErrorNotificationProvider = ({ children }) => {
   const [errorNotifications, setErrorNotifications] = useState([]);
