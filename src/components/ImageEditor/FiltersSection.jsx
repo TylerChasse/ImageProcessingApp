@@ -1,12 +1,5 @@
-/**
- * Enhanced FiltersSection with Error Handling
- * 
- * Safely processes filters with error recovery.
- */
-
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useImage } from '../../context/ImageContext';
-import { useErrorNotification } from '../ErrorNotification';
 import Emboss from './Filters/Emboss/Emboss';
 import HueRotation from './Filters/HueRotation/HueRotation';
 import Saturation from './Filters/Saturation/Saturation';
@@ -21,88 +14,116 @@ import { applyBlur } from './Filters/Blur/BlurCalculation';
 import { applySepiaTone } from './Filters/SepiaTone/SepiaToneCalculation';
 import styles from '../../styles/Filters.module.css';
 
-const FiltersSection = () => {
-  const { originalImageData, filters, setEditedImageData } = useImage();
-  const { showError } = useErrorNotification();
-  const [isProcessing, setIsProcessing] = useState(false);
+/**
+ * Map filter IDs to their processing functions
+ */
+const filterFunctions = {
+  emboss: applyEmboss,
+  hueRotation: applyHueRotation,
+  saturation: applySaturation,
+  posterize: applyPosterize,
+  blur: applyBlur,
+  sepiaTone: applySepiaTone,
+};
 
+const FiltersSection = () => {
+  const { 
+    originalImageData, 
+    filters, 
+    setEditedImageData,
+    filterCache,
+    lastChangedFilterIndex 
+  } = useImage();
+
+  // Track previous filters to detect what changed
+  const previousFilters = useRef(filters);
+
+  /**
+   * OPTIMIZED: Incremental filter processing
+   * Only re-applies filters from the changed filter onwards
+   */
   useEffect(() => {
     if (!originalImageData) return;
 
-    // Prevent concurrent processing
-    if (isProcessing) return;
+    // Find which filter actually changed
+    let startIndex = 0;
+    for (let i = 0; i < filters.length; i++) {
+      const current = filters[i];
+      const previous = previousFilters.current[i];
+      
+      // Check if this filter changed
+      if (!previous || 
+          current.enabled !== previous.enabled || 
+          current.strength !== previous.strength) {
+        startIndex = i;
+        break;
+      }
+    }
 
-    setIsProcessing(true);
+    // Store current filters for next comparison
+    previousFilters.current = filters;
 
-    // Use setTimeout to prevent blocking UI
-    setTimeout(() => {
-      try {
-        // Check if image data is valid
-        if (!originalImageData.data || originalImageData.data.length === 0) {
-          throw new Error('Invalid image data');
-        }
-
-        // Create a copy of original image data
-        let currentImageData = new ImageData(
+    // Determine starting point for processing
+    let currentImageData;
+    
+    if (startIndex === 0) {
+      // Start from original
+      currentImageData = new ImageData(
+        new Uint8ClampedArray(originalImageData.data),
+        originalImageData.width,
+        originalImageData.height
+      );
+    } else {
+      // Check if we have a cached result from previous filter
+      const prevIndex = startIndex - 1;
+      if (filterCache.has(prevIndex)) {
+        // Use cached result from previous filter
+        const cached = filterCache.get(prevIndex);
+        currentImageData = new ImageData(
+          new Uint8ClampedArray(cached.data),
+          cached.width,
+          cached.height
+        );
+        
+        console.log(`Using cached result from filter ${prevIndex}, skipping ${startIndex} filters!`);
+      } else {
+        // No cache, need to process from beginning
+        currentImageData = new ImageData(
           new Uint8ClampedArray(originalImageData.data),
           originalImageData.width,
           originalImageData.height
         );
-
-        // Apply each enabled filter with error handling
-        filters.forEach(filter => {
-          if (filter.enabled) {
-            try {
-              switch (filter.id) {
-                case 'emboss':
-                  currentImageData = applyEmboss(currentImageData, filter.strength);
-                  break;
-                case 'hueRotation':
-                  currentImageData = applyHueRotation(currentImageData, filter.strength);
-                  break;
-                case 'saturation':
-                  currentImageData = applySaturation(currentImageData, filter.strength);
-                  break;
-                case 'posterize':
-                  currentImageData = applyPosterize(currentImageData, filter.strength);
-                  break;
-                case 'blur':
-                  currentImageData = applyBlur(currentImageData, filter.strength);
-                  break;
-                case 'sepiaTone':
-                  currentImageData = applySepiaTone(currentImageData, filter.strength);
-                  break;
-                default:
-                  console.warn(`Unknown filter: ${filter.id}`);
-              }
-
-              // Validate result
-              if (!currentImageData || !currentImageData.data) {
-                throw new Error(`Filter ${filter.name} failed to process`);
-              }
-
-            } catch (filterError) {
-              console.error(`Error applying ${filter.name}:`, filterError);
-              showError(`Failed to apply ${filter.name} filter`);
-              // Continue with other filters
-            }
-          }
-        });
-
-        // Update edited image
-        setEditedImageData(currentImageData);
-        setIsProcessing(false);
-
-      } catch (error) {
-        console.error('Filter processing error:', error);
-        showError('Failed to process filters. Image may be too large.');
-        // Reset to original
-        setEditedImageData(originalImageData);
-        setIsProcessing(false);
+        startIndex = 0;
       }
-    }, 0);
+    }
 
-  }, [originalImageData, filters, setEditedImageData, showError, isProcessing]);
+    // Apply filters from startIndex onwards
+    let processedCount = 0;
+    for (let i = startIndex; i < filters.length; i++) {
+      const filter = filters[i];
+      
+      if (filter.enabled) {
+        const filterFn = filterFunctions[filter.id];
+        if (filterFn) {
+          currentImageData = filterFn(currentImageData, filter.strength);
+          processedCount++;
+        }
+      }
+      
+      // Cache the result after this filter
+      // Store a copy to prevent mutations
+      filterCache.set(i, new ImageData(
+        new Uint8ClampedArray(currentImageData.data),
+        currentImageData.width,
+        currentImageData.height
+      ));
+    }
+
+    console.log(`Applied ${processedCount} filter(s) starting from index ${startIndex}`);
+
+    // Update the edited image
+    setEditedImageData(currentImageData);
+  }, [originalImageData, filters, setEditedImageData, filterCache]);
 
   return (
     <div className={styles.filtersSection}>
